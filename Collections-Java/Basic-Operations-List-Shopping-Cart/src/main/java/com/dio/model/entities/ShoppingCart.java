@@ -21,15 +21,17 @@ public class ShoppingCart {
         itemList.add(item);
     }
     
-    public void removeItem(String itemToRemove){
+    public void removeItem(String items){
+        List<Item> itemsToRemove = new ArrayList<>();
         if (!itemList.isEmpty()) {
             //itemList.remove(itemToRemove);
             
             for (Item item : itemList) {
-                if(item.getName().equalsIgnoreCase(itemToRemove)){
-                    itemList.remove(item);
+                if(item.getName().equalsIgnoreCase(items)){
+                    itemsToRemove.add(item);
                 }
             }
+        itemList.removeAll(itemsToRemove);
         } else {
             System.out.println("A lista está vazia!");
         }

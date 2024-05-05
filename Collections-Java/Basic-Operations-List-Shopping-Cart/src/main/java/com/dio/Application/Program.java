@@ -21,12 +21,13 @@ public class Program {
         System.out.println("1 - Adicionar ao carrinho\n2 - Remover do carrinho\n3 - Calcular valor total\n4 - Consultar itens do carrinho\n0 - Sair");
         try {
         while(toExit != true){
-            System.out.print("\nOpcao: ");
+            System.out.print("Opcao: ");
             Integer opt = sc.nextInt();
             sc.nextLine();
-            switch (opt) {
+            
+            switch (opt) {                
                 case 1:
-                    System.out.printf("Digite o nome do "+cont+"º do item: ");
+                    System.out.print("Digite o nome do "+cont+"º do item: ");
                     String name = sc.nextLine();
                     
                     System.out.print("Digite o preco do "+cont+"º item: ");
@@ -34,6 +35,7 @@ public class Program {
                     
                     System.out.print("Digite a quantidade do "+cont+"º item: ");
                     Integer quantity = sc.nextInt();
+                    sc.nextLine();
                     
                     Item item = new Item(name, price, quantity);
                     
@@ -43,7 +45,9 @@ public class Program {
                 case 2:
                     System.out.print("Digite o nome do item que deseja remover: ");
                     String nameToRemove = sc.nextLine();
+                    
                     shoppingCart.removeItem(nameToRemove);
+                    
                     break;
                 case 3:
                     System.out.println("Valor total atual: R$"+ String.format("%.2f", shoppingCart.calcTotalValue()));
