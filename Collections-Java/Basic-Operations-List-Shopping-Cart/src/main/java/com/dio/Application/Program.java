@@ -4,12 +4,13 @@ import java.util.Scanner;
 
 import com.dio.model.entities.Item;
 import com.dio.model.entities.ShoppingCart;
+import java.util.Locale;
 
 public class Program {
     
     public static void main(String[] args) {
         
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in).useLocale(Locale.US);
         
         ShoppingCart shoppingCart = new ShoppingCart();
         boolean toExit = false;
@@ -22,11 +23,12 @@ public class Program {
         while(toExit != true){
             System.out.print("\nOpcao: ");
             Integer opt = sc.nextInt();
+            sc.nextLine();
             switch (opt) {
                 case 1:
-                    System.out.print("Digite o nome do "+cont+"º do item: ");
-                    String name = sc.next();
-                    sc.nextLine();
+                    System.out.printf("Digite o nome do "+cont+"º do item: ");
+                    String name = sc.nextLine();
+                    
                     System.out.print("Digite o preco do "+cont+"º item: ");
                     Double price = sc.nextDouble();
                     
@@ -40,9 +42,8 @@ public class Program {
                     break;
                 case 2:
                     System.out.print("Digite o nome do item que deseja remover: ");
-                    String nameToRemove = sc.next();
+                    String nameToRemove = sc.nextLine();
                     shoppingCart.removeItem(nameToRemove);
-                    sc.nextLine();
                     break;
                 case 3:
                     System.out.println("Valor total atual: R$"+ String.format("%.2f", shoppingCart.calcTotalValue()));

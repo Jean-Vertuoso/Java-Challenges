@@ -51,7 +51,7 @@ public class ShoppingCart {
                 StringBuilder sb = new StringBuilder();
                 
                 sb.append("Nome: "+ item.getName());
-                sb.append(" - Preco: "+ item.getPrice());
+                sb.append(" - Preco: "+ String.format("%.2f", item.getPrice()));
                 sb.append(" - Quantidade: "+ item.getQuantity());
                 
                 System.out.println(sb.toString());
