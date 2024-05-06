@@ -4,23 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCart {
-    //attributes
+    // Atributos
     private List<Item> itemList = new ArrayList<>();
 
-    //constructor
-
+    // Construtor
     public ShoppingCart() {}
     
-    //getters
+    // Getters
     public List<Item> getItemList() {
         return itemList;
     }
     
-    //methods
+    // Métodos
+    
+    // Método para adicionar item à lista
     public void addItem(Item item){
         itemList.add(item);
     }
     
+    //Método para remover item da lista
     public void removeItem(String items){
         List<Item> itemsToRemove = new ArrayList<>();
         if (!itemList.isEmpty()) {
@@ -37,6 +39,7 @@ public class ShoppingCart {
         }
     }
     
+    // Método para calcular valor total
     public double calcTotalValue(){
         double sum = 0;
         
@@ -47,6 +50,7 @@ public class ShoppingCart {
         return sum;
     }
     
+    // Método para mostrar informações dos items da lista
     public void showItems(){        
         if (!itemList.isEmpty()) {            
             for (Item item : itemList) {            
