@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.Objects;
 import java.util.Random;
 
-public class Employee {
+public class Employee implements Comparable<Employee>{
     
     private Integer register;
     private String name;
@@ -23,10 +23,10 @@ public class Employee {
         this.salary = salary;
     }
 
-//    @Override
-//    public int compareTo(Employee emp) {
-//        return register.compareTo(emp.getRegister());
-//    }
+    @Override
+    public int compareTo(Employee emp) {
+        return register.compareTo(emp.getRegister());
+    }
     
     @Override
     public int hashCode() {
@@ -94,4 +94,11 @@ public class Employee {
         return sb.toString();
     }
 
+}
+
+class ComparatorByName implements Comparator<Employee>{
+    @Override
+    public int compare(Employee emp1, Employee emp2) {
+        return emp1.getName().compareTo(emp2.getName());
+    }
 }

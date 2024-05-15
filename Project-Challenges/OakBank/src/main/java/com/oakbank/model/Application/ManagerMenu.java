@@ -7,8 +7,7 @@ import java.util.TreeSet;
 import com.oakbank.model.entities.Employee;
 import com.oakbank.model.exceptions.InvalidOption;
 import com.oakbank.model.comparators.ComparatorByName;
-import java.util.Comparator;
-import java.util.stream.Collectors;
+import com.oakbank.model.exceptions.EmptyList;
 
 public class ManagerMenu {
     
@@ -16,28 +15,24 @@ public class ManagerMenu {
 
     public ManagerMenu() {
         employeeList = new HashSet<>();
-        employeeList.add(new Employee("Jose da Silva", "Desenvolvedor Java", 3745.00));
+        employeeList.add(new Employee("José da Silva", "Desenvolvedor Java", 3745.00));
         employeeList.add(new Employee("José Pereira", "Analista de Negócios", 4331.00));
         employeeList.add(new Employee("Maria da Rosa", "Arquiteta de Software", 9473.00));
         employeeList.add(new Employee("Ana Souza", "Tech-lead FrontEnd", 11700.00));
     }
     
-    public Set<Employee> listByRegister(){
-        Set<Employee> listByReg = employeeList.stream()
-                .sorted(Comparator.comparing(Employee::getRegister))
-                .map(Employee::getRegister)
-                .collect(Collectors.toSet());
-//        if (!employeeList.isEmpty()) {
-//            for (Employee employee : listByReg) {
-//                System.out.println(employee);
-//            }
-//        } else {
-//            throw new RuntimeException("A lista está vazia.");
-//        }
-            return listByReg;
+    public void listByRegister() throws EmptyList{
+        Set<Employee> listByReg = new TreeSet<>(employeeList);
+        if (!employeeList.isEmpty()) {
+            for (Employee employee : listByReg) {
+                System.out.println(employee);
+            }
+        } else {
+            throw new EmptyList();
+        }
     }
     
-    public void listByName(){
+    public void listByName() throws EmptyList{
         Set<Employee> listByName = new TreeSet<>(new ComparatorByName());
         if (!employeeList.isEmpty()) {
             listByName.addAll(employeeList);
@@ -45,12 +40,28 @@ public class ManagerMenu {
                 System.out.println(employee);
             }
         } else {
-            System.out.println("A lista está vazia.");
+            throw new EmptyList();
         }
     }
     
-    public void findByName(String name){
-        
+    public void findByName(String name) throws EmptyList{
+        Set<Employee> findByName = new TreeSet<>(new ComparatorByName());
+        if (!employeeList.isEmpty()) {
+            for (Employee employee : employeeList) {
+                if(employee.getName().startsWith(name) || employee.getName().equalsIgnoreCase(name)){
+                    findByName.add(employee);
+                }
+            }
+            for (Employee employee : findByName) {
+                System.out.println(employee);
+            }
+            
+            if(findByName.isEmpty()) {
+                System.out.println("\nO funcionario solicitado não foi encontrado.");
+            }
+        } else {
+            throw new EmptyList();
+        }
     }
     
     public static void main(String[] args){
@@ -86,10 +97,10 @@ public class ManagerMenu {
                     break;
                     
                 case 3:
-                    System.out.println("Digite o nome completo do funcionário que deseja pesquisar: ");
+                    System.out.print("Digite o nome do funcionário: ");
                     String searchName = sc.nextLine();
                     
-                    
+                    managerMenu.findByName(searchName);                    
                     break;
                     
                 case 4:
@@ -107,7 +118,7 @@ public class ManagerMenu {
                     break;
                     
                 case 0:
-                    System.out.println("\nDeslogando...");
+                    System.out.println("Deslogando...");
                     isUsing = false;
                     break;
                     
@@ -119,6 +130,8 @@ public class ManagerMenu {
             
         } catch (InvalidOption invalidOption) {
             System.out.println("Opção inválida!");
+        } catch (EmptyList emptylist) {
+            System.out.println("A lista está vazia.");
         } finally {        
             sc.close();            
         }
