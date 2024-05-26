@@ -11,9 +11,14 @@ import com.oakbank.model.exceptions.EmptyList;
 
 public class ManagerMenu {
     
+    //Lista de Funcionários com SET
     Set<Employee> employeeList;
 
-    public ManagerMenu() {
+    //Construtor vazio para instaciar
+    public ManagerMenu() {}
+    
+    //Construtor
+    public ManagerMenu(Employee employee) {
         employeeList = new HashSet<>();
         employeeList.add(new Employee("José da Silva", "Desenvolvedor Java", 3745.00));
         employeeList.add(new Employee("José Pereira", "Analista de Negócios", 4331.00));
@@ -21,6 +26,7 @@ public class ManagerMenu {
         employeeList.add(new Employee("Ana Souza", "Tech-lead FrontEnd", 11700.00));
     }
     
+    //Opção 1: Listar os funcionários organizados pelo Número do Registro utilizando interface Comparable
     public void listByRegister() throws EmptyList{
         Set<Employee> listByReg = new TreeSet<>(employeeList);
         if (!employeeList.isEmpty()) {
@@ -32,6 +38,7 @@ public class ManagerMenu {
         }
     }
     
+    //Opção 2: Listar os funcionários organizados pelo nome(ordem alfabética) utilizando Comparator
     public void listByName() throws EmptyList{
         Set<Employee> listByName = new TreeSet<>(new ComparatorByName());
         if (!employeeList.isEmpty()) {
@@ -44,6 +51,7 @@ public class ManagerMenu {
         }
     }
     
+    //Opção 3: Encontrar um funcionário por parte do nome, ou nome completo
     public void findByName(String name) throws EmptyList{
         Set<Employee> findByName = new TreeSet<>(new ComparatorByName());
         if (!employeeList.isEmpty()) {
@@ -64,6 +72,12 @@ public class ManagerMenu {
         }
     }
     
+    //Opção 4: Adiciona um novo funcionário à lista de funcionários
+    public void addEmployee(Employee employee){
+        employeeList.add(employee);
+    }
+    
+    //Método principal
     public static void main(String[] args){
         
         Scanner sc = new Scanner(System.in);
@@ -72,7 +86,7 @@ public class ManagerMenu {
         
         boolean isUsing = true;
         
-        System.out.println("Olá João, seja bem vindo.");
+        System.out.println("Olá USUARIO_GESTAO, seja bem vindo.");
         System.out.println("\nO que deseja realizar: \n"
             + "1 - Listar funcionários organizados pelo número de registro\n"
             + "2 - Listar funcionarios organizados pelo nome\n"
@@ -113,13 +127,14 @@ public class ManagerMenu {
                     System.out.print("Digite o salário do funcionário: ");
                     Double salary = sc.nextDouble();
                     
-                    managerMenu.employeeList.add(new Employee(name, role, salary));
+                    managerMenu.addEmployee(new Employee(name, role, salary));
                     
                     break;
                     
                 case 0:
                     System.out.println("Deslogando...");
                     isUsing = false;
+                    Menu.main(args);
                     break;
                     
                 default:

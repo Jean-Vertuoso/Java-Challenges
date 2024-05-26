@@ -18,33 +18,35 @@ public class AuthService {
         this.isAuth = false;
     }
     
-    public boolean validateManagerUser(String user, String password) throws IncorrectEmployeeAccessData{
-        if(!user.equalsIgnoreCase(this.managerUser) && !password.equals(this.password)){
-            isAuth = false;
-        } else {
-            isAuth = true;
+    public Boolean validateManagerUser(String user, String password) throws IncorrectEmployeeAccessData{
+        if(user.equalsIgnoreCase(this.managerUser) && password.equals(this.password)){
+            this.isAuth = true;
             System.out.println("\nUsuário Gestão validado.\n"
                 + "Acessando sistema...\n");
+        } else {
+            this.isAuth = false;            
         }
-        return isAuth;
+        return this.isAuth;
     }
     
     public boolean validateEmployeeUser(String user, String password) throws IncorrectEmployeeAccessData{
-        if(!user.equalsIgnoreCase(this.employeeUser) && !password.equals(this.password)){
-            isAuth = false;
-        } else {
+        if(user.equalsIgnoreCase(this.employeeUser) && !password.equals(this.password)){
             isAuth = true;
-            System.out.println("Usuário Funcionário validado.");
+            System.out.println("\nUsuário Funcionário validado.\n"
+                + "Acessando sistema...\n");
+        } else {
+            isAuth = false;
         }
         return isAuth;
     }
     
     public boolean validatefinalUser(String user, String password) throws IncorrectEmployeeAccessData{
-        if(!user.equalsIgnoreCase(this.finalUser) && !password.equals(this.password)){
-            isAuth = false;
-        } else {
+        if(user.equalsIgnoreCase(this.finalUser) && password.equals(this.password)){
             isAuth = true;
-            System.out.println("Usuário validado.");
+            System.out.println("\nUsuário Cliente validado.\n"
+                + "Acessando sistema...\n");
+        } else {
+            isAuth = false;
         }
         return isAuth;
     }

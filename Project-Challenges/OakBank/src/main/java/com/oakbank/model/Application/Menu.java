@@ -15,20 +15,12 @@ public class Menu {
         
         AuthService authService = new AuthService();
         
-        System.out.println("+----------------------------------------------------------------------------+");
-        System.out.println("|                                                                            |");
-        System.out.println("|                                                                            |");
-        System.out.println("|    +-----+      ,\\      |   /       +----,      ,\\     |\\   |   |   /      |");
-        System.out.println("|    |     |     /  \\     |  /        |   /      /  \\    | \\  |   |  /       |");
-        System.out.println("|    |     |    / -- \\    |./         |- -\\     / -- \\   |  \\ |   |./        |");
-        System.out.println("|    |     |   /      \\   |  \\        |    \\   /      \\  |   \\|   |  \\       |");
-        System.out.println("|    +-----+  '        '  '   '       ------  '        ' '    '   '   '      |");
-        System.out.println("|                                                                            |");
-        System.out.println("|                                                                            |");
-        System.out.println("+----------------------------------------------------------------------------+");
+        Boolean isAuth;
+        
         System.out.println("\nBem vindo ao Oak Bank!");
         System.out.println("\nEscolha uma das opções de acesso:");
-        System.out.println("1 - Gestão\n"
+        System.out.println(
+            "1 - Gestão\n"
             + "2 - Operacional\n"
             + "3 - Cliente\n"
             + "0 - Sair");
@@ -45,8 +37,10 @@ public class Menu {
 
                     System.out.printf("Senha: ");
                     String password = sc.next();
+                    
+                    isAuth = authService.validateManagerUser(user, password);
 
-                    if (authService.validateManagerUser(user, password)) {
+                    if (isAuth) {
                         ManagerMenu.main(args);
                     } else {
                         throw new IncorrectEmployeeAccessData();
