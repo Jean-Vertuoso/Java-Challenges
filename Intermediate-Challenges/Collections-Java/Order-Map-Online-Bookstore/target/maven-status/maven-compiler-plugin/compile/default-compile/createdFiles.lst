@@ -1,0 +1,4 @@
+com\dio\model\entities\OnlineBookstore.class
+com\dio\model\entities\Book.class
+com\dio\model\entities\ComparatorByAuthor.class
+com\dio\model\entities\ComparatorByPrice.class
